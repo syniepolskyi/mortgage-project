@@ -4,6 +4,10 @@ body {
   color: #0A0A0A;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 a {
   text-decoration: none;
 }
@@ -26,10 +30,16 @@ header {
 }
 
 .container {
-  width: 600px;
-  margin: 0 auto;
-  padding-left: 15px;
-  padding-right: 15px;
+  width: 100%;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.main-selector { 
+  overflow: hidden;
 }
 
 .backdrop.is-hidden {
@@ -77,8 +87,104 @@ header {
     padding: 40px;
     width: 100%;
     max-width: 450px;
-    height: 300px;
+    min-height: 250px; 
+    height: 50%;
     background-color: #fff;
     box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.2), 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 1px 3px rgba(0, 0, 0, 0.12);
     border-radius: 4px;
+    overflow: auto;
+}
+
+.flex-container {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.banks-container {
+  flex-basis: 200px;
+}
+
+.bank-item:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.bank-item-container {
+  position: relative;
+  padding-left: 5px;
+  padding-right: 55px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  background-color: #E0E0E0;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.span-bank-name {
+  padding-left: 3px;
+}
+
+.bank-item-container button {
+  position: absolute;
+  right: 10px;
+  padding: 0;
+  width: 20px;
+  border: 1px solid black;
+  border-radius: 3px;
+  background-color: transparent;
+}
+
+.edit-bank-btn {
+  right: 35px !important;
+}
+
+.create-bank-btn {
+  display: block;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 150px;
+  height: 40px;
+}
+
+.loan-info-container {
+  flex-basis: 300px;
+}
+
+.loan-info-item:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.loan-info-item {
+  display: grid;
+  grid-gap: 1em;
+	grid-template-columns: repeat(auto-fit, minmax(10ch, 1fr));	 
+  height: 40px;
+  border-bottom: 1px solid #EEEEEE;
+}
+
+.loan-info-key {
+  grid-column-start: 1;
+}
+
+.loan-info-value {
+  font-weight: 600;
+  grid-column-start: 2;
+  text-align: right;
+}
+
+.form-group {
+  padding-top: 10px;
+}
+
+.form-group label {
+  display: block;
+}
+
+.form-container {
+  height: 100%;
+  overflow: auto;
 }
