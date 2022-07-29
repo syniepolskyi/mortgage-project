@@ -249,3 +249,13 @@ button:active {
   font-style: italic;
   font-size: 13px;
 }
+
+.remove-all-banks-btn {
+  color: red;
+}
+
+.error {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
