@@ -103,6 +103,42 @@ header {
   flex-wrap: wrap;
 }
 
+button{
+  position: relative;
+  cursor: pointer;
+  transition-duration: 0.4s;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  user-select:none;
+}
+
+button:after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  top:0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: all 0.5s;
+  box-shadow: 0 0 10px 40px #FCC746;
+}
+
+button:active:after {
+  content: "";
+  box-shadow: 0 0 0 0 #FCC746;
+  position: absolute;
+  left: 0;
+  top:0;
+  opacity: 1;
+  transition: 0s;
+}
+
+button:active {
+  top: 1px;
+}
+
+
 .banks-container {
   flex-basis: 200px;
 }
