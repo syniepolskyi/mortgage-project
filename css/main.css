@@ -143,6 +143,10 @@ button:active {
   flex-basis: 200px;
 }
 
+.bank-item {
+  cursor: pointer;
+}
+
 .bank-item:not(:last-child) {
   margin-bottom: 10px;
 }
@@ -159,6 +163,10 @@ button:active {
   background-color: #E0E0E0;
   border-radius: 5px;
   overflow: hidden;
+}
+
+.bank-item-active > .bank-item-container  {
+  border: 2px solid blue;
 }
 
 .span-bank-name {
