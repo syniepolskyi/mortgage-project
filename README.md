@@ -20,6 +20,40 @@
 1. Рендер інформації по окремому банку - функція renderInfo()
 1. Можливо вам понадобиться модалка, де будете вносити дані для нового банку або виводити інфу при правках поточного банку.
 
+Шаблон для списку банків:
+```HTML
+<ul class="bank-list">
+  <li class="bank-item">
+    <div class="bank-item-container">
+      <span class="span-bank-id">1.</span><!-- номер п/п -->
+      <span class="span-bank-name">Mono</span><!-- назва банку -->
+      <button class="edit-bank-btn"><i class="fa-solid fa-pencil"></i></button><!-- кнопка редагування -->
+      <button class="remove-bank-btn"><i class="fa-solid fa-xmark"></i></button><!-- кнопка видалення -->
+    </div>
+  </li>
+  <!-- ... -->
+</ul>
+```
+
+Шаблон для відображення інформації про банк:
+```HTML
+<ul class="loan-info-list">
+  <li class="loan-info-item">
+    <div class="loan-info-key">Bank</div><!-- ключ (тут - Bank, тобто назва банку) -->
+    <div class="loan-info-value">Privat</div><!-- значення (тут - Privat) -->
+  </li>
+  <!-- ... -->
+</ul>
+```
+
+Шаблон поля для редагування у формі:
+```HTML
+<div class="form-group">
+  <label for="maxLoan">Mortgage size, $: </label>
+  <input type="text" id="maxLoan">
+</div>
+```
+
 Базові заготовки по розмітці можете зробити до заняття.
 Наприклад:
 1. контейнер
