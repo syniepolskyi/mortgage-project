@@ -18,6 +18,10 @@ ul {
   padding: 0;
 }
 
+.hidden {
+  display: none;
+}
+
 header {
   padding-top: 20px;
   padding-bottom: 20px;
