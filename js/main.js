@@ -1,13 +1,22 @@
-function toggleModal(){
-    const modalElem = document.querySelector("[data-modal]")
-    modalElem.classList.toggle("is-hidden")
-}
+const root = document.getElementById("root");
+const banksContainer = document.createElement("div");
+const loanInfoContainer = document.createElement("div");
 
-const closeModalElem = document.querySelector("[data-modal-close]")
-const createBankBtn = document.querySelector(".create-bank-btn")
+banksContainer.classList.add("banks-container");
+loanInfoContainer.classList.add("loan-info-container");
 
-closeModalElem.addEventListener("click", toggleModal)
-createBankBtn.addEventListener("click", toggleModal)
+root.append(banksContainer, loanInfoContainer);
+
+// function toggleModal() {
+//   const modalElem = document.querySelector("[data-modal]");
+//   modalElem.classList.toggle("is-hidden");
+// }
+
+// const closeModalElem = document.querySelector("[data-modal-close]");
+// const createBankBtn = document.querySelector(".create-bank-btn");
+
+// closeModalElem.addEventListener("click", toggleModal);
+// createBankBtn.addEventListener("click", toggleModal);
 
 const banks = [
   {

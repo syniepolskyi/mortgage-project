@@ -1,7 +1,7 @@
 body {
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-size: 14px;
-  color: #0A0A0A;
+  color: #0a0a0a;
 }
 
 * {
@@ -42,77 +42,85 @@ header {
   padding-right: 10px;
 }
 
-.main-selector { 
+.main-selector {
   overflow: hidden;
 }
 
 .backdrop.is-hidden {
-    visibility: hidden;
-    opacity: 0;
-    pointer-events: none;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .backdrop {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-    overflow-y: scroll;
-    background-color: rgba(0, 0, 0, 0.2);
-    opacity: 1;
-    visibility: visible;
-    transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1), visibility 250ms cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 4;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  background-color: rgba(0, 0, 0, 0.2);
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 4;
 }
 
 .backdrop .close {
-    position: absolute;
-    padding: 0;
-    top: 8px;
-    right: 8px;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 50%;
-    background: #fff;
-    cursor: pointer;
+  position: absolute;
+  padding: 0;
+  top: 8px;
+  right: 8px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  background: #fff;
+  cursor: pointer;
 }
 
 .form-backdrop {
-    position: absolute;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    left: 50%;
-    padding: 40px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    width: 100%;
-    max-width: 450px;
-    min-height: 250px; 
-    height: 50%;
-    background-color: #fff;
-    box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.2), 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 1px 3px rgba(0, 0, 0, 0.12);
-    border-radius: 4px;
-    overflow: auto;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  padding: 40px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 100%;
+  max-width: 450px;
+  min-height: 250px;
+  height: 50%;
+  background-color: #fff;
+  box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.2), 0px 1px 1px rgba(0, 0, 0, 0.14),
+    0px 1px 3px rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+  overflow: auto;
 }
 
-.flex-container {
+#root {
   display: flex;
   gap: 40px;
   flex-wrap: wrap;
 }
 
-button{
+/* .flex-container {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+} */
+
+button {
   position: relative;
   cursor: pointer;
   transition-duration: 0.4s;
   -webkit-transition-duration: 0.4s; /* Safari */
-  user-select:none;
+  user-select: none;
 }
 
 button:after {
@@ -120,20 +128,20 @@ button:after {
   display: block;
   position: absolute;
   left: 0;
-  top:0;
+  top: 0;
   width: 100%;
   height: 100%;
   opacity: 0;
   transition: all 0.5s;
-  box-shadow: 0 0 10px 40px #FCC746;
+  box-shadow: 0 0 10px 40px #fcc746;
 }
 
 button:active:after {
   content: "";
-  box-shadow: 0 0 0 0 #FCC746;
+  box-shadow: 0 0 0 0 #fcc746;
   position: absolute;
   left: 0;
-  top:0;
+  top: 0;
   opacity: 1;
   transition: 0s;
 }
@@ -153,6 +161,8 @@ button:active {
 
 .banks-container {
   flex-basis: 200px;
+  background-color: lightgreen;
+  min-height: 300px;
 }
 
 .bank-item {
@@ -172,12 +182,12 @@ button:active {
   height: 30px;
   display: flex;
   align-items: center;
-  background-color: #E0E0E0;
+  background-color: #e0e0e0;
   border-radius: 5px;
   overflow: hidden;
 }
 
-.bank-item-active > .bank-item-container  {
+.bank-item-active > .bank-item-container {
   border: 2px solid blue;
 }
 
@@ -210,6 +220,8 @@ button:active {
 
 .loan-info-container {
   flex-basis: 300px;
+  background-color: lightblue;
+  min-height: 300px;
 }
 
 .loan-info-item:not(:last-child) {
@@ -219,9 +231,9 @@ button:active {
 .loan-info-item {
   display: grid;
   grid-gap: 1em;
-	grid-template-columns: repeat(auto-fit, minmax(10ch, 1fr));	 
+  grid-template-columns: repeat(auto-fit, minmax(10ch, 1fr));
   height: 40px;
-  border-bottom: 1px solid #EEEEEE;
+  border-bottom: 1px solid #eeeeee;
 }
 
 .loan-info-key {
