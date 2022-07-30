@@ -38,7 +38,7 @@ banksContainer.append(listOfBank, addButton, cleanButton);
 
 function renderList() { 
    const itemOfBank = banks.map((bank, index) => {
-   return `<li class="bank-item">
+   return `<li class="bank-item" data-id = "${bank.id}">
             <div class="bank-item-container">
               <span class="span-bank-id">${index + 1}</span>
               <span class="span-bank-name">${bank.name}</span>
@@ -50,6 +50,20 @@ function renderList() {
   listOfBank.innerHTML = itemOfBank;
 };
 renderList();
+
+const bankNames = document.querySelectorAll('.span-bank-name');
+console.dir(bankNames)
+
+const onClickBankName = (ev) => {
+    console.log(ev.target.textContent)
+    const currentBank = banks.find(bank => bank.name === ev.target.textContent)
+    console.log(currentBank)
+  }
+
+bankNames.forEach((elem) => {
+  elem.addEventListener('click', onClickBankName)
+})
+
 // function toggleModal() {
 //   const modalElem = document.querySelector("[data-modal]");
 //   modalElem.classList.toggle("is-hidden");
