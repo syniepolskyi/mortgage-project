@@ -1,23 +1,3 @@
-const root = document.getElementById("root");
-const banksContainer = document.createElement("div");
-const loanInfoContainer = document.createElement("div");
-
-banksContainer.classList.add("banks-container");
-loanInfoContainer.classList.add("loan-info-container");
-
-root.append(banksContainer, loanInfoContainer);
-
-// function toggleModal() {
-//   const modalElem = document.querySelector("[data-modal]");
-//   modalElem.classList.toggle("is-hidden");
-// }
-
-// const closeModalElem = document.querySelector("[data-modal-close]");
-// const createBankBtn = document.querySelector(".create-bank-btn");
-
-// closeModalElem.addEventListener("click", toggleModal);
-// createBankBtn.addEventListener("click", toggleModal);
-
 const banks = [
   {
     id: "435tr34wrt",
@@ -36,3 +16,49 @@ const banks = [
     loanTerm: 50,
   },
 ];
+
+const root = document.getElementById("root");
+const banksContainer = document.createElement("div");
+const loanInfoContainer = document.createElement("div");
+
+banksContainer.classList.add("banks-container");
+loanInfoContainer.classList.add("loan-info-container");
+
+root.append(banksContainer, loanInfoContainer);
+
+const addButton = document.createElement('button');
+const cleanButton = document.createElement('button');
+const listOfBank = document.createElement("ul");
+
+addButton.classList.add('create-bank-btn');
+addButton.textContent = 'Додати';
+cleanButton.classList.add('remove-all-banks-btn');
+cleanButton.textContent = 'Очистити';
+banksContainer.append(listOfBank, addButton, cleanButton);
+
+function renderList() { 
+   const itemOfBank = banks.map((bank, index) => {
+   return `<li class="bank-item">
+            <div class="bank-item-container">
+              <span class="span-bank-id">${index + 1}</span>
+              <span class="span-bank-name">${bank.name}</span>
+              <button class="edit-bank-btn"><i class="fa-solid fa-pencil"></i></button>
+              <button class="remove-bank-btn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+          </li>`
+  }).join('');
+  listOfBank.innerHTML = itemOfBank;
+};
+renderList();
+// function toggleModal() {
+//   const modalElem = document.querySelector("[data-modal]");
+//   modalElem.classList.toggle("is-hidden");
+// }
+
+// const closeModalElem = document.querySelector("[data-modal-close]");
+// const createBankBtn = document.querySelector(".create-bank-btn");
+
+// closeModalElem.addEventListener("click", toggleModal);
+// createBankBtn.addEventListener("click", toggleModal);
+
+
