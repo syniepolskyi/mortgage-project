@@ -23,13 +23,11 @@
 Шаблон для списку банків:
 ```HTML
 <ul class="bank-list">
-  <li class="bank-item">
-    <div class="bank-item-container">
-      <span class="span-bank-id">1.</span><!-- номер п/п -->
-      <span class="span-bank-name">Mono</span><!-- назва банку -->
-      <button class="edit-bank-btn"><i class="fa-solid fa-pencil"></i></button><!-- кнопка редагування -->
-      <button class="remove-bank-btn"><i class="fa-solid fa-xmark"></i></button><!-- кнопка видалення -->
-    </div>
+  <li class="bank-item bank-item-container">
+    <span class="span-bank-id">1.</span><!-- номер п/п -->
+    <span class="span-bank-name">Mono</span><!-- назва банку -->
+    <button class="edit-bank-btn"><i class="fa-solid fa-pencil"></i></button><!-- кнопка редагування -->
+    <button class="remove-bank-btn"><i class="fa-solid fa-xmark"></i></button><!-- кнопка видалення -->
   </li>
   <!-- ... -->
 </ul>
