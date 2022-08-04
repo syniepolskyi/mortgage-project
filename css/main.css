@@ -160,9 +160,11 @@ button:active {
 }
 
 .banks-container {
-  flex-basis: 200px;
+  padding: 20px;
+  flex-basis: 250px;
   background-color: lightgreen;
-  min-height: 300px;
+  min-height: 350px;
+  border-radius: 10px;
 }
 
 .bank-item {
@@ -219,9 +221,11 @@ button:active {
 }
 
 .loan-info-container {
-  flex-basis: 300px;
+  padding: 20px;
+  flex-basis: 350px;
   background-color: lightblue;
-  min-height: 300px;
+  min-height: 350px;
+  border-radius: 10px;
 }
 
 .loan-info-item:not(:last-child) {
