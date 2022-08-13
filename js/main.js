@@ -148,6 +148,9 @@ listOfBank.addEventListener("click", (e) => {
     deleteBankItem(itemId);
     clearBankInfo();
     renderList();
+    if (banks.length < 3) {
+      cleanButton.remove();
+    }
     return;
   }
 
