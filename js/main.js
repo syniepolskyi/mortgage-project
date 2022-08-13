@@ -1,20 +1,20 @@
 let banks = [
-  {
-    id: "435tr34wrt",
-    name: "Mono",
-    interestRate: 5,
-    maxLoan: 500000,
-    minPayment: 1000,
-    loanTerm: 12,
-  },
-  {
-    id: "asdfw342rew5",
-    name: "Privat",
-    interestRate: 7,
-    maxLoan: 1000000,
-    minPayment: 5000,
-    loanTerm: 50,
-  },
+  // {
+  //   id: "435tr34wrt",
+  //   name: "Mono",
+  //   interestRate: 5,
+  //   maxLoan: 500000,
+  //   minPayment: 1000,
+  //   loanTerm: 12,
+  // },
+  // {
+  //   id: "asdfw342rew5",
+  //   name: "Privat",
+  //   interestRate: 7,
+  //   maxLoan: 1000000,
+  //   minPayment: 5000,
+  //   loanTerm: 50,
+  // },
 ];
 
 const root = document.getElementById("root");
@@ -22,40 +22,42 @@ const banksContainer = document.createElement("div");
 const loanInfoContainer = document.createElement("div");
 const modalRef = document.getElementById("modal");
 
-
-
-
 banksContainer.classList.add("banks-container");
 loanInfoContainer.classList.add("loan-info-container");
 
-
 root.append(banksContainer, loanInfoContainer);
 
-const addButton = document.createElement('button');
-const cleanButton = document.createElement('button');
+const addButton = document.createElement("button");
 const listOfBank = document.createElement("ul");
 
+addButton.classList.add("create-bank-btn");
+addButton.textContent = "Додати";
+const cleanButton = document.createElement("button");
+cleanButton.classList.add("remove-all-banks-btn");
+cleanButton.textContent = "Очистити";
+if (banks.length > 2) {
+  banksContainer.append(listOfBank, addButton, cleanButton);
+} else {
+  banksContainer.append(listOfBank, addButton);
+}
 
-addButton.classList.add('create-bank-btn');
-addButton.textContent = 'Додати';
-cleanButton.classList.add('remove-all-banks-btn');
-cleanButton.textContent = 'Очистити';
-banksContainer.append(listOfBank, addButton, cleanButton);
-
-
-function renderList() { 
-   const itemOfBank = banks.map((bank, index) => {
-   return `<li class="bank-item bank-item-container" data-id = "${bank.id}"> 
+function renderList() {
+  const itemOfBank = banks
+    .map((bank, index) => {
+      return `<li class="bank-item bank-item-container" data-id = "${bank.id}"> 
               <span class="span-bank-id">${index + 1}</span>
               <span class="span-bank-name">${bank.name}</span>
               <button class="edit-bank-btn"><i class="fa-solid fa-pencil"></i></button>
               <button class="remove-bank-btn"><i class="fa-solid fa-xmark"></i></button>
-          </li>`
-  }).join('');
+          </li>`;
+    })
+    .join("");
   listOfBank.innerHTML = itemOfBank;
 
-document.querySelectorAll(`.edit-bank-btn`).forEach(e=>e.addEventListener(`click`, onEditClick));
-};
+  document
+    .querySelectorAll(`.edit-bank-btn`)
+    .forEach((e) => e.addEventListener(`click`, onEditClick));
+}
 
 renderList();
 
@@ -94,19 +96,20 @@ function renderModalMarkup() {
     </div>
   </form>
 </div>
-`
+`;
 }
 
-
-const bankNames = document.querySelectorAll('.bank-item-container');
+const bankNames = document.querySelectorAll(".bank-item-container");
 
 function onClearActives() {
-  const activeItems = document.querySelectorAll('.bank-item-container.bank-item-active');
-  activeItems.forEach(e => e.classList.remove('bank-item-active'));
+  const activeItems = document.querySelectorAll(
+    ".bank-item-container.bank-item-active"
+  );
+  activeItems.forEach((e) => e.classList.remove("bank-item-active"));
 }
 
-function renderInfoMarkUp (bank){
- const bankInfoItem = ` 
+function renderInfoMarkUp(bank) {
+  const bankInfoItem = ` 
     <ul >
     <li class="loan-info-item">
       <div class="loan-info-key">Bank</div>
@@ -129,82 +132,88 @@ function renderInfoMarkUp (bank){
       <div class="loan-info-value">${bank.interestRate}</div>
         </li>
     </ul>
-`
-loanInfoContainer.innerHTML = bankInfoItem;
+`;
+  loanInfoContainer.innerHTML = bankInfoItem;
 }
 
-listOfBank.addEventListener('click', (e) => {
-  if (e.target.nodeName === `UL`){
+listOfBank.addEventListener("click", (e) => {
+  if (e.target.nodeName === `UL`) {
     return;
   }
-  const itemBank = e.target.closest('.bank-item');
+  const itemBank = e.target.closest(".bank-item");
   const itemId = itemBank.dataset.id;
-  const currentBank = banks.find(bank => bank.id === itemId);
+  const currentBank = banks.find((bank) => bank.id === itemId);
 
-  if (e.target.closest('.remove-bank-btn')) {
+  if (e.target.closest(".remove-bank-btn")) {
     deleteBankItem(itemId);
     clearBankInfo();
     renderList();
     return;
-  }  
+  }
 
   renderInfoMarkUp(currentBank);
-  onClearActives()
-  itemBank.classList.add('bank-item-active');
-})
+  onClearActives();
+  itemBank.classList.add("bank-item-active");
+});
 
-function onEditClick(ev){
-    const currentBank = banks.find(el=>el.id===ev.target.parentNode.dataset.id)
-    console.log(currentBank);
+function onEditClick(ev) {
+  const currentBank = banks.find(
+    (el) => el.id === ev.target.parentNode.dataset.id
+  );
+  console.log(currentBank);
 }
 
-function deleteBankItem(id){
-    console.log(`del`);
-    banks = banks.filter(elem => elem.id !== id);
+function deleteBankItem(id) {
+  console.log(`del`);
+  banks = banks.filter((elem) => elem.id !== id);
 }
 
-function clearBankInfo(){
-  loanInfoContainer.innerHTML = '';
+function clearBankInfo() {
+  loanInfoContainer.innerHTML = "";
 }
 
-addButton.addEventListener('click', onAddButtonClick)
-
+addButton.addEventListener("click", onAddButtonClick);
+cleanButton.addEventListener("click", onClearBankList);
 
 function onAddButtonClick() {
   modalRef.innerHTML = renderModalMarkup();
   const closeModalBtn = modalRef.querySelector(".close");
-  closeModalBtn.addEventListener('click', onCloseModal)
-  const formBackdrop = document.querySelector(".form-backdrop")
-  formBackdrop.addEventListener("submit", onFormSubmit)
-
+  closeModalBtn.addEventListener("click", onCloseModal);
+  const formBackdrop = document.querySelector(".form-backdrop");
+  formBackdrop.addEventListener("submit", onFormSubmit);
 }
 
 function onCloseModal() {
-  modalRef.innerHTML = '';
+  modalRef.innerHTML = "";
 }
 
 function onFormSubmit(e) {
   e.preventDefault();
 
-  const formData = new FormData (e.target)
-  
+  const formData = new FormData(e.target);
+
   const bank = {};
 
   formData.forEach((value, key) => {
     bank[key] = value;
-  })
+  });
 
-  bank.id = crypto.randomUUID()
+  bank.id = crypto.randomUUID();
 
-  banks.push(bank)
-  
+  banks.push(bank);
+  if (banks.length > 2) {
+    banksContainer.append(cleanButton);
+  }
   renderList();
-  onCloseModal()
+  onCloseModal();
 }
 
-
-
-
+function onClearBankList() {
+  listOfBank.innerHTML = "";
+  loanInfoContainer.innerHTML = "<p>Немає інформації про банки</p>";
+  banks = [];
+  cleanButton.remove();
+}
 
 // function toggleModal() {
 //   const modalElem = document.querySelector("[data-modal]");
@@ -216,5 +225,3 @@ function onFormSubmit(e) {
 
 // closeModalElem.addEventListener("click", toggleModal);
 // createBankBtn.addEventListener("click", toggleModal);
-
-
