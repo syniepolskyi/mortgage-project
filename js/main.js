@@ -20,9 +20,14 @@ let banks = [
 const root = document.getElementById("root");
 const banksContainer = document.createElement("div");
 const loanInfoContainer = document.createElement("div");
+const modalRef = document.getElementById("modal");
+
+
+
 
 banksContainer.classList.add("banks-container");
 loanInfoContainer.classList.add("loan-info-container");
+
 
 root.append(banksContainer, loanInfoContainer);
 
@@ -53,6 +58,45 @@ document.querySelectorAll(`.edit-bank-btn`).forEach(e=>e.addEventListener(`click
 };
 
 renderList();
+
+function renderModalMarkup() {
+  return `
+  <div class="backdrop" data-modal>
+  <form class="form-backdrop">
+    <button type="button" class="close" data-modal-close>
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <h3 class="form-title">New bank</h3>
+    <div class="form-container">
+      <div class="form-group">
+        <label for="name">name</label>
+        <input type="text" name = "name" id="name">
+      </div>
+      <div class="form-group">
+        <label for="maxLoan">Mortgage size, $: </label>
+        <input type="text" name = "maxLoan" id="maxLoan">
+      </div>
+      <div class="form-group">
+        <label for="minPayment">Minimum down payment, $: </label>
+        <input type="text" name="minPayment" id="minPayment">
+      </div>
+      <div class="form-group">
+        <label for="loanTerm">Loan period, month: </label>
+        <input type="text" name="loanTerm" id="loanTerm">
+      </div>
+      <div class="form-group">
+        <label for="interestRate">Invest rate, %: </label>
+        <input type="text" name ="interestRate" id="interestRate">
+      </div>
+      <div class="form-group submit-container">
+        <button type="submit" class="submit-btn">Зберегти</button>
+      </div>
+    </div>
+  </form>
+</div>
+`
+}
+
 
 const bankNames = document.querySelectorAll('.bank-item-container');
 
@@ -122,6 +166,44 @@ function deleteBankItem(id){
 function clearBankInfo(){
   loanInfoContainer.innerHTML = '';
 }
+
+addButton.addEventListener('click', onAddButtonClick)
+
+
+function onAddButtonClick() {
+  modalRef.innerHTML = renderModalMarkup();
+  const closeModalBtn = modalRef.querySelector(".close");
+  closeModalBtn.addEventListener('click', onCloseModal)
+  const formBackdrop = document.querySelector(".form-backdrop")
+  formBackdrop.addEventListener("submit", onFormSubmit)
+
+}
+
+function onCloseModal() {
+  modalRef.innerHTML = '';
+}
+
+function onFormSubmit(e) {
+  e.preventDefault();
+
+  const formData = new FormData (e.target)
+  
+  const bank = {};
+
+  formData.forEach((value, key) => {
+    bank[key] = value;
+  })
+
+  bank.id = crypto.randomUUID()
+
+  banks.push(bank)
+  
+  renderList();
+  onCloseModal()
+}
+
+
+
 
 
 // function toggleModal() {
