@@ -59,14 +59,10 @@ renderList();
 
 const bankNames = document.querySelectorAll('.bank-item-container');
 
-const onClickBankName = (ev) => {
-    // console.log(ev.target.textContent)
-    if (ev.target.nodeName === `BUTTON`){
-        return;
-    }
-    const currentBank = banks.find(bank => bank.id === ev.currentTarget.dataset.id )
-    renderInfoMarkUp(currentBank);
-  }
+function onClearActives() {
+  const activeItems = document.querySelectorAll('.bank-item-container.bank-item-active');
+  activeItems.forEach(e => e.classList.remove('bank-item-active'));
+}
 
 function renderInfoMarkUp (bank){
  const bankInfoItem = ` 
@@ -98,9 +94,16 @@ loanInfoContainer.innerHTML = bankInfoItem;
 
 }
 
-
-bankNames.forEach((elem) => {
-  elem.addEventListener('click', onClickBankName)
+listOfBank.addEventListener('click', (e) => {
+  if (e.target.nodeName === `UL`){
+    return;
+  }
+  const itemBank = e.target.closest('.bank-item');
+  const itemId = itemBank.dataset.id;
+  const currentBank = banks.find(bank => bank.id === itemId);
+  renderInfoMarkUp(currentBank);
+  onClearActives()
+  itemBank.classList.add('bank-item-active');
 })
 
 function onEditClick(ev){

@@ -189,7 +189,7 @@ button:active {
   overflow: hidden;
 }
 
-.bank-item-active > .bank-item-container {
+.bank-item-active {
   border: 2px solid blue;
 }
 
