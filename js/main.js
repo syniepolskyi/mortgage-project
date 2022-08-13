@@ -1,4 +1,4 @@
-const banks = [
+let banks = [
   {
     id: "435tr34wrt",
     name: "Mono",
@@ -50,9 +50,6 @@ function renderList() {
   listOfBank.innerHTML = itemOfBank;
 
 document.querySelectorAll(`.edit-bank-btn`).forEach(e=>e.addEventListener(`click`, onEditClick));
-document.querySelectorAll(`.remove-bank-btn`).forEach(e=>e.addEventListener(`click`, onDelClick));
-
-
 };
 
 renderList();
@@ -90,8 +87,6 @@ function renderInfoMarkUp (bank){
     </ul>
 `
 loanInfoContainer.innerHTML = bankInfoItem;
-
-
 }
 
 listOfBank.addEventListener('click', (e) => {
@@ -101,20 +96,34 @@ listOfBank.addEventListener('click', (e) => {
   const itemBank = e.target.closest('.bank-item');
   const itemId = itemBank.dataset.id;
   const currentBank = banks.find(bank => bank.id === itemId);
+
+  if (e.target.closest('.remove-bank-btn')) {
+    deleteBankItem(itemId);
+    clearBankInfo();
+    renderList();
+    return;
+  }  
+
   renderInfoMarkUp(currentBank);
   onClearActives()
   itemBank.classList.add('bank-item-active');
 })
 
 function onEditClick(ev){
-    
     const currentBank = banks.find(el=>el.id===ev.target.parentNode.dataset.id)
     console.log(currentBank);
 }
 
-function onDelClick(){
+function deleteBankItem(id){
     console.log(`del`);
+    banks = banks.filter(elem => elem.id !== id);
 }
+
+function clearBankInfo(){
+  loanInfoContainer.innerHTML = '';
+}
+
+
 // function toggleModal() {
 //   const modalElem = document.querySelector("[data-modal]");
 //   modalElem.classList.toggle("is-hidden");
