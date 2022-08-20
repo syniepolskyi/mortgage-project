@@ -1,0 +1,29 @@
+{
+  "name": "mortgage-project",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://syniepolskyi.github.io/mortgage-project/",
+  "scripts": {
+    "start": "parcel src/*.html",
+    "build": "parcel build src/*.html --public-url /mortgage-project/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://syniepolskyi.github.io/mortgage-project.git"
+  },
+  "keywords": [],
+  "author": "Blended-3,4 <syniepolskyi@yahoo.com>",
+  "license": "ISC",
+  "dependencies": {
+    "modern-normalize": "^1.1.0",
+    "notiflix": "*",
+    "lodash": "*"
+  },
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.6.0",
+    "parcel": "^2.6.0",
+    "parcel-reporter-clean-dist": "^1.0.4",
+    "posthtml-include": "^1.7.4"
+  },
+  "browserslist": "> 0.5%, last 2 versions, not dead"
+}
