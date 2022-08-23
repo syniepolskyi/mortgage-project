@@ -54,9 +54,10 @@ function renderList() {
     .join('');
   listOfBank.innerHTML = itemOfBank;
 
-  document
-    .querySelectorAll(`.edit-bank-btn`)
-    .forEach(e => e.addEventListener(`click`, onEditClick));
+  // document
+  //   .querySelectorAll(`.edit-bank-btn`)
+  //   .forEach((e) => e.addEventListener(`click`, onEditClick));
+
 }
 
 renderList();
@@ -136,7 +137,10 @@ function renderInfoMarkUp(bank) {
   loanInfoContainer.innerHTML = bankInfoItem;
 }
 
-listOfBank.addEventListener('click', e => {
+listOfBank.addEventListener("click", onListOfBankClick );
+
+function onListOfBankClick(e) {
+
   if (e.target.nodeName === `UL`) {
     return;
   }
@@ -144,7 +148,12 @@ listOfBank.addEventListener('click', e => {
   const itemId = itemBank.dataset.id;
   const currentBank = banks.find(bank => bank.id === itemId);
 
-  if (e.target.closest('.remove-bank-btn')) {
+  if (e.target.closest(".edit-bank-btn")) {
+    onEditClick(e);
+  };
+
+  if (e.target.closest(".remove-bank-btn")) {
+
     deleteBankItem(itemId);
     if (itemBank.classList.contains('bank-item-active')) {
       clearBankInfo();
@@ -157,19 +166,19 @@ listOfBank.addEventListener('click', e => {
 
     return;
   }
-
+  
   renderInfoMarkUp(currentBank);
 
   onClearActives();
-  itemBank.classList.add('bank-item-active');
+  itemBank.classList.add("bank-item-active");
+}
 
-  console.log('click end');
-});
 
 function onEditClick(ev) {
   const currentBank = banks.find(
     el => el.id === ev.target.parentNode.dataset.id
   );
+  onAddButtonClick();
   console.log(currentBank);
 }
 
