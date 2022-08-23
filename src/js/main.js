@@ -17,24 +17,24 @@ let banks = [
   // },
 ];
 
-const root = document.getElementById("root");
-const banksContainer = document.createElement("div");
-const loanInfoContainer = document.createElement("div");
-const modalRef = document.getElementById("modal");
+const root = document.getElementById('root');
+const banksContainer = document.createElement('div');
+const loanInfoContainer = document.createElement('div');
+const modalRef = document.getElementById('modal');
 
-banksContainer.classList.add("banks-container");
-loanInfoContainer.classList.add("loan-info-container");
+banksContainer.classList.add('banks-container');
+loanInfoContainer.classList.add('loan-info-container');
 
 root.append(banksContainer, loanInfoContainer);
 
-const addButton = document.createElement("button");
-const listOfBank = document.createElement("ul");
+const addButton = document.createElement('button');
+const listOfBank = document.createElement('ul');
 
-addButton.classList.add("create-bank-btn");
-addButton.textContent = "Додати";
-const cleanButton = document.createElement("button");
-cleanButton.classList.add("remove-all-banks-btn");
-cleanButton.textContent = "Очистити";
+addButton.classList.add('create-bank-btn');
+addButton.textContent = 'Додати';
+const cleanButton = document.createElement('button');
+cleanButton.classList.add('remove-all-banks-btn');
+cleanButton.textContent = 'Очистити';
 if (banks.length > 2) {
   banksContainer.append(listOfBank, addButton, cleanButton);
 } else {
@@ -51,12 +51,13 @@ function renderList() {
               <button class="remove-bank-btn"><i class="fa-solid fa-xmark"></i></button>
           </li>`;
     })
-    .join("");
+    .join('');
   listOfBank.innerHTML = itemOfBank;
 
   // document
   //   .querySelectorAll(`.edit-bank-btn`)
   //   .forEach((e) => e.addEventListener(`click`, onEditClick));
+
 }
 
 renderList();
@@ -99,13 +100,13 @@ function renderModalMarkup() {
 `;
 }
 
-const bankNames = document.querySelectorAll(".bank-item-container");
+const bankNames = document.querySelectorAll('.bank-item-container');
 
 function onClearActives() {
   const activeItems = document.querySelectorAll(
-    ".bank-item-container.bank-item-active"
+    '.bank-item-container.bank-item-active'
   );
-  activeItems.forEach((e) => e.classList.remove("bank-item-active"));
+  activeItems.forEach(e => e.classList.remove('bank-item-active'));
 }
 
 function renderInfoMarkUp(bank) {
@@ -139,35 +140,43 @@ function renderInfoMarkUp(bank) {
 listOfBank.addEventListener("click", onListOfBankClick );
 
 function onListOfBankClick(e) {
+
   if (e.target.nodeName === `UL`) {
     return;
   }
-  const itemBank = e.target.closest(".bank-item");
+  const itemBank = e.target.closest('.bank-item');
   const itemId = itemBank.dataset.id;
-  const currentBank = banks.find((bank) => bank.id === itemId);
+  const currentBank = banks.find(bank => bank.id === itemId);
 
   if (e.target.closest(".edit-bank-btn")) {
     onEditClick(e);
   };
 
   if (e.target.closest(".remove-bank-btn")) {
+
     deleteBankItem(itemId);
-    clearBankInfo();
+    if (itemBank.classList.contains('bank-item-active')) {
+      clearBankInfo();
+    }
+
     renderList();
     if (banks.length < 3) {
       cleanButton.remove();
     }
+
     return;
   }
   
   renderInfoMarkUp(currentBank);
+
   onClearActives();
   itemBank.classList.add("bank-item-active");
 }
 
+
 function onEditClick(ev) {
   const currentBank = banks.find(
-    (el) => el.id === ev.target.parentNode.dataset.id
+    el => el.id === ev.target.parentNode.dataset.id
   );
   onAddButtonClick();
   console.log(currentBank);
@@ -175,26 +184,26 @@ function onEditClick(ev) {
 
 function deleteBankItem(id) {
   console.log(`del`);
-  banks = banks.filter((elem) => elem.id !== id);
+  banks = banks.filter(elem => elem.id !== id);
 }
 
 function clearBankInfo() {
-  loanInfoContainer.innerHTML = "";
+  loanInfoContainer.innerHTML = '';
 }
 
-addButton.addEventListener("click", onAddButtonClick);
-cleanButton.addEventListener("click", onClearBankList);
+addButton.addEventListener('click', onAddButtonClick);
+cleanButton.addEventListener('click', onClearBankList);
 
 function onAddButtonClick() {
   modalRef.innerHTML = renderModalMarkup();
-  const closeModalBtn = modalRef.querySelector(".close");
-  closeModalBtn.addEventListener("click", onCloseModal);
-  const formBackdrop = document.querySelector(".form-backdrop");
-  formBackdrop.addEventListener("submit", onFormSubmit);
+  const closeModalBtn = modalRef.querySelector('.close');
+  closeModalBtn.addEventListener('click', onCloseModal);
+  const formBackdrop = document.querySelector('.form-backdrop');
+  formBackdrop.addEventListener('submit', onFormSubmit);
 }
 
 function onCloseModal() {
-  modalRef.innerHTML = "";
+  modalRef.innerHTML = '';
 }
 
 function onFormSubmit(e) {
@@ -219,10 +228,11 @@ function onFormSubmit(e) {
 }
 
 function onClearBankList() {
-  listOfBank.innerHTML = "";
-  loanInfoContainer.innerHTML = "<p>Немає інформації про банки</p>";
+  listOfBank.innerHTML = '';
+  loanInfoContainer.innerHTML = '<p>Немає інформації про банки</p>';
   banks = [];
   cleanButton.remove();
+  console.log('onClearBankList');
 }
 
 // function toggleModal() {
