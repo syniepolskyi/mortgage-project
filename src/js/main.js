@@ -1,21 +1,16 @@
-let banks = [
-  // {
-  //   id: "435tr34wrt",
-  //   name: "Mono",
-  //   interestRate: 5,
-  //   maxLoan: 500000,
-  //   minPayment: 1000,
-  //   loanTerm: 12,
-  // },
-  // {
-  //   id: "asdfw342rew5",
-  //   name: "Privat",
-  //   interestRate: 7,
-  //   maxLoan: 1000000,
-  //   minPayment: 5000,
-  //   loanTerm: 50,
-  // },
-];
+import throttle from 'lodash/throttle'
+
+let banks = []
+try {
+  banks = JSON.parse(localStorage.getItem("banks"))
+} catch(exc){
+  banks = []
+  console.log(exc)
+}
+
+if(!banks){
+  banks = []
+}
 
 const root = document.getElementById('root');
 const banksContainer = document.createElement('div');
@@ -41,8 +36,18 @@ if (banks.length > 2) {
   banksContainer.append(listOfBank, addButton);
 }
 
-function renderList() {
-  const itemOfBank = banks
+const bankNames = document.querySelectorAll('.bank-item-container');
+
+listOfBank.addEventListener("click", onListOfBankClick );
+addButton.addEventListener('click', onAddButtonClick);
+cleanButton.addEventListener('click', onClearBankList);
+
+function renderList(__banks = null) {
+  let _banks = banks
+  if(__banks){
+    _banks = __banks
+  }
+  const itemOfBank = _banks
     .map((bank, index) => {
       return `<li class="bank-item bank-item-container" data-id = "${bank.id}"> 
               <span class="span-bank-id">${index + 1}</span>
@@ -54,10 +59,16 @@ function renderList() {
     .join('');
   listOfBank.innerHTML = itemOfBank;
 
-  // document
-  //   .querySelectorAll(`.edit-bank-btn`)
-  //   .forEach((e) => e.addEventListener(`click`, onEditClick));
-
+  if(banks.length <= 5 && document.querySelector(`input[name="search"]`)){
+    document.querySelector(`input[name="search"]`).remove()
+    return
+  }
+  if(banks.length > 5 && !document.querySelector(`input[name="search"]`)){
+    const markup = `<input type="text" placeholder="search..." name="search" class="search-input">`
+    banksContainer.insertAdjacentHTML("afterbegin",markup)
+    const searchInput = document.querySelector(`input[name="search"]`)
+    searchInput.addEventListener("keyup", throttle(filterBanks,100))
+  }
 }
 
 renderList();
@@ -100,8 +111,6 @@ function renderModalMarkup() {
 `;
 }
 
-const bankNames = document.querySelectorAll('.bank-item-container');
-
 function onClearActives() {
   const activeItems = document.querySelectorAll(
     '.bank-item-container.bank-item-active'
@@ -136,8 +145,6 @@ function renderInfoMarkUp(bank) {
 `;
   loanInfoContainer.innerHTML = bankInfoItem;
 }
-
-listOfBank.addEventListener("click", onListOfBankClick );
 
 function onListOfBankClick(e) {
 
@@ -178,12 +185,10 @@ function onEditClick(ev) {
   const currentBank = banks.find(
     el => el.id === ev.target.parentNode.dataset.id
   );
-  onAddButtonClick();
-  console.log(currentBank);
+  onAddButtonClick(currentBank);
 }
 
 function deleteBankItem(id) {
-  console.log(`del`);
   banks = banks.filter(elem => elem.id !== id);
 }
 
@@ -191,11 +196,20 @@ function clearBankInfo() {
   loanInfoContainer.innerHTML = '';
 }
 
-addButton.addEventListener('click', onAddButtonClick);
-cleanButton.addEventListener('click', onClearBankList);
-
-function onAddButtonClick() {
+function onAddButtonClick(currentBank = null) {
   modalRef.innerHTML = renderModalMarkup();
+  const form = document.querySelector(".form-backdrop")
+  if(currentBank && currentBank.id && currentBank.name){
+    document.querySelector(".form-title").textContent = `Edit bank ${currentBank.name}`
+    form.setAttribute("data-id", currentBank.id)
+  
+    Object.keys(currentBank).forEach(key => {
+      if(key === "id"){
+        return
+      }
+      form.elements[key].value = currentBank[key]
+    })
+  }
   const closeModalBtn = modalRef.querySelector('.close');
   closeModalBtn.addEventListener('click', onCloseModal);
   const formBackdrop = document.querySelector('.form-backdrop');
@@ -213,13 +227,24 @@ function onFormSubmit(e) {
 
   const bank = {};
 
+  
   formData.forEach((value, key) => {
     bank[key] = value;
   });
 
-  bank.id = crypto.randomUUID();
-
-  banks.push(bank);
+  
+  if(e.target.getAttribute("data-id")){
+    bank.id = e.target.getAttribute("data-id");
+    let index = banks.findIndex(el => el.id === bank.id )
+    if(index >= 0){
+      banks[index] = bank
+    }
+  } else {
+    bank.id = crypto.randomUUID();
+    banks.push(bank);
+  }
+  
+  localStorage.setItem("banks", JSON.stringify(banks))
   if (banks.length > 2) {
     banksContainer.append(cleanButton);
   }
@@ -235,13 +260,15 @@ function onClearBankList() {
   console.log('onClearBankList');
 }
 
-// function toggleModal() {
-//   const modalElem = document.querySelector("[data-modal]");
-//   modalElem.classList.toggle("is-hidden");
-// }
-
-// const closeModalElem = document.querySelector("[data-modal-close]");
-// const createBankBtn = document.querySelector(".create-bank-btn");
-
-// closeModalElem.addEventListener("click", toggleModal);
-// createBankBtn.addEventListener("click", toggleModal);
+function filterBanks(ev){
+  const filterStr = ev.target.value.trim()
+  if(!filterStr){
+    renderList()
+    clearBankInfo()
+  }
+  const filteredBanks = banks.filter((el) => 
+    el.name.toUpperCase()
+    .indexOf(filterStr.toUpperCase()) >= 0)
+  renderList(filteredBanks)
+  clearBankInfo()
+}
